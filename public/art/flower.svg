@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+<defs><linearGradient id="p" x1="34" y1="20" x2="210" y2="218" gradientUnits="userSpaceOnUse"><stop stop-color="#9BCBFF"/><stop offset=".55" stop-color="#C2A7FF"/><stop offset="1" stop-color="#F2A9D5"/></linearGradient><filter id="g"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<circle cx="120" cy="120" r="72" fill="#B69EFF" opacity=".12" filter="url(#g)"/>
+<g fill="url(#p)" stroke="#E3D9FF" stroke-opacity=".55" stroke-width="2">
+<ellipse cx="120" cy="70" rx="23" ry="42"/><ellipse cx="120" cy="170" rx="23" ry="42"/>
+<ellipse cx="70" cy="120" rx="42" ry="23"/><ellipse cx="170" cy="120" rx="42" ry="23"/>
+<ellipse cx="84.5" cy="84.5" rx="22" ry="39" transform="rotate(-45 84.5 84.5)"/>
+<ellipse cx="155.5" cy="84.5" rx="22" ry="39" transform="rotate(45 155.5 84.5)"/>
+<ellipse cx="84.5" cy="155.5" rx="22" ry="39" transform="rotate(45 84.5 155.5)"/>
+<ellipse cx="155.5" cy="155.5" rx="22" ry="39" transform="rotate(-45 155.5 155.5)"/>
+</g><circle cx="120" cy="120" r="22" fill="#FFE5A8"/><circle cx="120" cy="120" r="10" fill="#FFF5D8"/>
+<g fill="#E8DFFF"><path d="M32 38l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/><path d="M204 172l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g>
+</svg>
