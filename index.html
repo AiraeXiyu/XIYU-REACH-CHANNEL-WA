@@ -44,7 +44,24 @@
       <form id="reaction-form">
         <label for="channel-link">WhatsApp channel post link</label>
         <input id="channel-link" name="link" type="url" placeholder="https://whatsapp.com/channel/..." autocomplete="url" required>
-        <p class="fineprint">Provider akan menentukan emoji sesuai respons API.</p>
+        <div class="label-row">
+          <label for="emoji-input">Emoji <span class="muted">(maks. 15 unik)</span></label>
+          <span id="emoji-count" class="counter">0 / 15</span>
+        </div>
+        <textarea id="emoji-input" name="emoji" rows="3" placeholder="Contoh: 🔥 😎 ❤️ 👍" required></textarea>
+        <div class="emoji-caption">Pilih emoji favoritmu ✨</div>
+        <div class="quick-emojis" aria-label="Emoji cepat">
+          <button type="button" data-emoji="🔥">🔥</button><button type="button" data-emoji="❤️">❤️</button>
+          <button type="button" data-emoji="😎">😎</button><button type="button" data-emoji="👍">👍</button>
+          <button type="button" data-emoji="✨">✨</button><button type="button" data-emoji="🥰">🥰</button>
+          <button type="button" data-emoji="🎉">🎉</button><button type="button" data-emoji="💯">💯</button>
+          <button type="button" data-emoji="🌸">🌸</button><button type="button" data-emoji="🦋">🦋</button>
+          <button type="button" data-emoji="🌷">🌷</button><button type="button" data-emoji="💜">💜</button>
+          <button type="button" data-emoji="👏">👏</button><button type="button" data-emoji="🤩">🤩</button>
+          <button type="button" data-emoji="🥳">🥳</button><button type="button" data-emoji="🌟">🌟</button>
+          <button type="button" data-emoji="💖">💖</button><button type="button" data-emoji="🪷">🪷</button>
+          <button type="button" data-emoji="🐻">🐻</button><button type="button" data-emoji="🍀">🍀</button>
+        </div>
         <div id="form-error" class="error" role="alert" hidden></div>
         <button id="submit-button" class="submit" type="submit">
           <span>Kirim permintaan</span><b>↗</b>

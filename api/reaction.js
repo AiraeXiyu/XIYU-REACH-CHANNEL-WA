@@ -1,3 +1,5 @@
+import { validateWhatsAppLink, parseEmojis } from "../src/validator.js";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -6,32 +8,13 @@ export default async function handler(req, res) {
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const link = typeof body?.link === "string" ? body.link.trim() : "";
+    const link = validateWhatsAppLink(body?.link);
+    const emojis = parseEmojis(body?.emoji, 15);
 
-    if (!link) {
-      return res.status(400).json({ status: false, error: "Link WhatsApp wajib diisi." });
-    }
-
-    let parsedLink;
-    try {
-      parsedLink = new URL(link);
-    } catch {
-      return res.status(400).json({ status: false, error: "Format link tidak valid." });
-    }
-
-    if (parsedLink.protocol !== "https:" ||
-        !["whatsapp.com", "www.whatsapp.com"].includes(parsedLink.hostname.toLowerCase()) ||
-        !parsedLink.pathname.startsWith("/channel/")) {
-      return res.status(400).json({
-        status: false,
-        error: "Gunakan link postingan WhatsApp Channel HTTPS yang valid."
-      });
-    }
-
-    // Provider endpoint yang diberikan: /tools/rchv2?link=<URL>
-    // Jangan menambahkan parameter emoji yang tidak tercantum pada format endpoint tersebut.
+    // Gateway mewajibkan KEDUA parameter: link dan emoji.
     const endpoint = new URL("https://api-cloud.my.id/tools/rchv2");
     endpoint.searchParams.set("link", link);
+    endpoint.searchParams.set("emoji", emojis.join(""));
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 25000);
@@ -56,41 +39,39 @@ export default async function handler(req, res) {
     try {
       data = JSON.parse(raw.replace(/^\uFEFF/, "").trim());
     } catch {
-      const contentType = upstream.headers.get("content-type") || "unknown";
-      const preview = raw.replace(/\s+/g, " ").trim().slice(0, 220);
       return res.status(502).json({
         status: false,
         error: "Provider tidak mengembalikan JSON.",
         provider_http_status: upstream.status,
-        provider_content_type: contentType,
-        provider_response_preview: preview || "(empty response)"
+        provider_response_preview: raw.replace(/\s+/g, " ").trim().slice(0, 220) || "(empty response)"
       });
     }
 
     const result = data?.result ?? {};
+    const quota = data?.quota ?? {};
     const payload = {
       status: data?.status === true,
       creator: data?.creator ?? null,
       app: "XIYU CODEX",
       message: result?.message ?? data?.message ?? data?.error ?? "Provider response received.",
       link: result?.link ?? link,
-      emojis: Array.isArray(result?.emoji) ? result.emoji : []
+      emojis: Array.isArray(result?.emoji) ? result.emoji : emojis,
+      total: result?.total ?? null,
+      successful: result?.sukses ?? null,
+      quota: {
+        plan: quota?.plan ?? null,
+        limit: quota?.limit ?? null,
+        remaining: quota?.remaining ?? null,
+        reset: quota?.reset ?? null
+      }
     };
-
-    // Tambahkan hanya jika memang disediakan oleh provider.
-    if (result?.total !== undefined) payload.total = result.total;
-    if (result?.sukses !== undefined) payload.successful = result.sukses;
-    if (data?.quota !== undefined) payload.quota = data.quota;
 
     return res.status(upstream.ok ? 200 : 502).json(payload);
   } catch (error) {
     if (error?.name === "AbortError") {
-      return res.status(504).json({
-        status: false,
-        error: "Provider request timed out."
-      });
+      return res.status(504).json({ status: false, error: "Provider request timed out." });
     }
-    return res.status(500).json({
+    return res.status(400).json({
       status: false,
       error: error?.message || "Request could not be processed."
     });
