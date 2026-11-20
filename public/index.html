@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080d1b">
+  <meta name="description" content="XIYU CODEX — WhatsApp Channel reaction gateway.">
+  <title>XIYU CODEX — Reach Channel</title>
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="petal-field" aria-hidden="true">
+    <span>🌸</span><span>✦</span><span>🌼</span><span>✨</span><span>🌺</span><span>💫</span>
+    <span>🌸</span><span>✧</span><span>🌷</span><span>⭐</span><span>🪷</span><span>❀</span>
+  </div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="XIYU CODEX home">
+      <img src="/logo.svg" alt="" width="42" height="42">
+      <span><b>XIYU CODEX</b><small>REACH CHANNEL · WA</small></span>
+    </a>
+    <span class="live"><i></i> API CONNECTOR</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">✦ PUBLIC PROVIDER INTEGRATION ✦</div>
+      <h1>Reach your<br><span>channel post.</span></h1>
+      <p>Masukkan tautan postingan WhatsApp Channel dan emoji. Permintaan dikirim ke provider, lalu hasil aslinya ditampilkan di sini.</p>
+      <div class="ornament">🌸 꽃 · 星 · ✧ · 花 🦋</div>
+      <div class="hero-art" aria-hidden="true">
+        <img class="flower-art" src="/art/flower.svg" alt="">
+        <img class="sparkle-art" src="/art/sparkle.svg" alt="">
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><span class="step">01 / REQUEST</span><h2>Atur permintaan</h2></div>
+        <span class="sparkle">✧</span>
+      </div>
+      <form id="reaction-form">
+        <label for="channel-link">WhatsApp channel post link</label>
+        <input id="channel-link" name="link" type="url" placeholder="https://whatsapp.com/channel/..." autocomplete="url" required>
+        <div class="label-row">
+          <label for="emoji-input">Emoji <span class="muted">(maks. 15 unik)</span></label>
+          <span id="emoji-count" class="counter">0 / 15</span>
+        </div>
+        <textarea id="emoji-input" name="emoji" rows="3" placeholder="Contoh: 🔥 😎 ❤️ 👍" required></textarea>
+        <div class="emoji-caption">Pilih emoji favoritmu ✨</div>
+        <div class="quick-emojis" aria-label="Emoji cepat">
+          <button type="button" data-emoji="🔥">🔥</button><button type="button" data-emoji="❤️">❤️</button>
+          <button type="button" data-emoji="😎">😎</button><button type="button" data-emoji="👍">👍</button>
+          <button type="button" data-emoji="✨">✨</button><button type="button" data-emoji="🥰">🥰</button>
+          <button type="button" data-emoji="🎉">🎉</button><button type="button" data-emoji="💯">💯</button>
+          <button type="button" data-emoji="🌸">🌸</button><button type="button" data-emoji="🦋">🦋</button>
+          <button type="button" data-emoji="🌷">🌷</button><button type="button" data-emoji="💜">💜</button>
+          <button type="button" data-emoji="👏">👏</button><button type="button" data-emoji="🤩">🤩</button>
+          <button type="button" data-emoji="🥳">🥳</button><button type="button" data-emoji="🌟">🌟</button>
+          <button type="button" data-emoji="💖">💖</button><button type="button" data-emoji="🪷">🪷</button>
+          <button type="button" data-emoji="🐻">🐻</button><button type="button" data-emoji="🍀">🍀</button>
+        </div>
+        <div id="form-error" class="error" role="alert" hidden></div>
+        <button id="submit-button" class="submit" type="submit">
+          <span>Kirim permintaan</span><b>↗</b>
+        </button>
+        <p class="fineprint">Satu klik mengirim satu permintaan ke provider. Hasil dan kuota mengikuti respons provider.</p>
+      </form>
+    </section>
+
+    <section id="result-panel" class="panel result-panel" hidden aria-live="polite">
+      <div class="panel-heading">
+        <div><span class="step">02 / RESPONSE</span><h2>Hasil provider</h2></div>
+        <span id="status-pill" class="status-pill">—</span>
+      </div>
+      <p id="result-message" class="result-message"></p>
+      <div class="stats">
+        <div class="stat"><small>Total</small><strong id="result-total">—</strong></div>
+        <div class="stat"><small>Berhasil</small><strong id="result-success">—</strong></div>
+      </div>
+      <div class="detail-list">
+        <div><span>Link</span><a id="result-link" href="#" target="_blank" rel="noopener noreferrer">—</a></div>
+        <div><span>Emoji dari provider</span><strong id="result-emojis">—</strong></div>
+        <div><span>Plan kuota</span><strong id="quota-plan">—</strong></div>
+        <div><span>Batas kuota</span><strong id="quota-limit">—</strong></div>
+        <div><span>Sisa kuota</span><strong id="quota-remaining">—</strong></div>
+        <div><span>Reset kuota</span><strong id="quota-reset">—</strong></div>
+      </div>
+      <button id="copy-result" class="copy-button" type="button">Salin ringkasan</button>
+    </section>
+
+    <section class="note">
+      <span>✦</span><p><b>XIYU CODEX</b> menampilkan data yang diterima dari API provider. Jika provider menolak atau sedang tidak tersedia, pesan responsnya akan ditampilkan apa adanya.</p>
+    </section>
+  </main>
+
+  <footer>🌸 XIYU CODEX <span>·</span> 작은 별처럼 빛나 ✧ 🦋</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
