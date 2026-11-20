@@ -166,13 +166,15 @@ XIYU-CODEX/
 │   └── reaction.js
 │
 ├── public/
-│   ├── index.html
 │   ├── app.js
 │   ├── style.css
 │   ├── logo.svg
-│   └── art/
+│   │
+│   └── svg/
+│       ├── hero-orbit.svg
+│       ├── pattern.svg
 │       ├── flower.svg
-│       └── sparkle.svg
+│       └── star.svg
 │
 ├── src/
 │   └── validator.js
@@ -231,14 +233,9 @@ Open the local URL displayed in your terminal.
 3. Select **Add New Project**.
 4. Import your GitHub repository.
 5. Set Framework Preset to **Other**.
-6. Set **Root Directory** to `./`.
-7. Leave **Build Command** empty.
-8. Set **Output Directory** to `public` (this folder contains `index.html` and the browser assets).
-9. Leave **Install Command** empty/default.
-10. No environment variables are required by default.
-11. Click **Deploy**.
-
-The homepage is stored at `public/index.html` so it is included when Vercel publishes the `public` output directory.
+6. Use the default project settings.
+7. No environment variables are required by default.
+8. Click **Deploy**.
 
 After deployment, the website and API routes will be available through your Vercel domain.
 
